@@ -5,6 +5,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.util.ListUtils;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.antwhale.blo.WeifxUserInfoBLO;
 import org.antwhale.bpo.UserInfoBPO;
 import org.antwhale.dto.userinfodto.WeifxUserImportParamDTO;
@@ -18,7 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @Author: 何欢
@@ -34,7 +38,7 @@ public class UserInfoBPOImpl implements UserInfoBPO {
     public List<WeifxUserInfo> importWeifxUser(MultipartFile file) throws IOException {
         List<WeifxUserInfo> weifxUserInfoList = new ArrayList<>();
         InputStream inputStream = file.getInputStream();
-        EasyExcel.read(inputStream, WeifxUserImportParamDTO.class,new ReadListener<WeifxUserImportParamDTO>() {
+        EasyExcel.read(inputStream, WeifxUserImportParamDTO.class, new ReadListener<WeifxUserImportParamDTO>() {
             /**
              * 单次缓存的数据量
              */
@@ -53,11 +57,12 @@ public class UserInfoBPOImpl implements UserInfoBPO {
             @Override
             public void invoke(WeifxUserImportParamDTO weifxUserImportParamDTO, AnalysisContext analysisContext) {
                 cachedDataList.add(weifxUserImportParamDTO);
+                cachedDataList = cachedDataListFilter(cachedDataList);
                 if (cachedDataList.size() >= BATCH_COUNT) {
                     List<WeifxUserInfo> weifxUserInfos = new ArrayList<>();
-                    cachedDataList.stream().forEach(c->{
+                    cachedDataList.stream().forEach(c -> {
                         WeifxUserInfo weifxUserInfo = new WeifxUserInfo();
-                        BeanUtils.copyProperties(c,weifxUserInfo);
+                        BeanUtils.copyProperties(c, weifxUserInfo);
                         weifxUserInfos.add(weifxUserInfo);
                         weifxUserInfoList.add(weifxUserInfo);//全局List，返回全部用户信息
                     });
@@ -66,6 +71,7 @@ public class UserInfoBPOImpl implements UserInfoBPO {
                     cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
                 }
             }
+
             /**
              * 所有数据解析完成了 都会来调用
              *
@@ -74,14 +80,44 @@ public class UserInfoBPOImpl implements UserInfoBPO {
             @Override
             public void doAfterAllAnalysed(AnalysisContext analysisContext) {
                 List<WeifxUserInfo> weifxUserInfos = new ArrayList<>();
-                cachedDataList.stream().forEach(c->{
+                cachedDataList = cachedDataListFilter(cachedDataList);
+                cachedDataList.stream().forEach(c -> {
                     WeifxUserInfo weifxUserInfo = new WeifxUserInfo();
-                    BeanUtils.copyProperties(c,weifxUserInfo);
+                    BeanUtils.copyProperties(c, weifxUserInfo);
                     weifxUserInfos.add(weifxUserInfo);
                 });
                 weifxUserInfoBLO.saveBatch(weifxUserInfos);
             }
         }).excelType(ExcelTypeEnum.CSV).sheet().doRead();
         return weifxUserInfoList;
+    }
+
+    /**
+    *@author 何欢
+    *@Date 17:46 2022/8/21
+    *@Description 根据id过滤导入的微分销重复用户
+    **/
+    private List<WeifxUserImportParamDTO> cachedDataListFilter(List<WeifxUserImportParamDTO> cachedDataList) {
+        String weifxUserinfoId = cachedDataList
+                .stream()
+                .map(WeifxUserImportParamDTO::getWeifxUserinfoId)
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+        List<WeifxUserInfo> weifxUserInfos = weifxUserInfoBLO.list(
+                new QueryWrapper<WeifxUserInfo>().in("weifx_userinfo_id", weifxUserinfoId)
+        );
+        if (CommonUtils.IsNull(weifxUserInfos)) {
+            return cachedDataList;
+        }
+        String weifxUserinfoIdFilter = weifxUserInfos
+                .stream()
+                .map(WeifxUserInfo::getWeifxUserinfoId)
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+        cachedDataList = cachedDataList
+                .stream()
+                .filter(c -> !weifxUserinfoIdFilter.contains(c.getWeifxUserinfoId().toString()))
+                .collect(Collectors.toList());
+        return cachedDataList;
     }
 }

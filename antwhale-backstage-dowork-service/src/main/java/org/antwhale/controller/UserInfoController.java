@@ -29,9 +29,9 @@ public class UserInfoController {
     public ResultVo<List<WeifxUserInfo>> importWeifxUserController(MultipartFile file) throws IOException {
         List<WeifxUserInfo> weifxUserInfos = userInfoBPO.importWeifxUser(file);
         if(CommonUtils.IsNull(weifxUserInfos)){
-            ResultVo.fail(weifxUserInfos,"上传结果集为空");
+           return ResultVo.fail(weifxUserInfos,"导入成功，但导入条数为空");
         }
-        return ResultVo.ok(weifxUserInfos,"上传成功");
+        return ResultVo.ok(weifxUserInfos,"导入成功");
     }
 
 }

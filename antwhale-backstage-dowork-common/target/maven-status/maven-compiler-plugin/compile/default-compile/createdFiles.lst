@@ -1,0 +1,6 @@
+org\antwhale\utils\FastJsonRedisSerializerUtils.class
+org\antwhale\config\RedisConfig.class
+org\antwhale\utils\CommonUtils.class
+org\antwhale\utils\RedisCacheUtils.class
+org\antwhale\utils\WebUtils.class
+org\antwhale\config\CorsConfig.class

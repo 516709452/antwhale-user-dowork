@@ -1,10 +1,10 @@
 # 服务端口
 server:
-  port: 8302
+  port: 8032
 # 服务名
 spring:
   application:
-    name: antwhale-work-hh
+    name: antwhale-backstage-dowork
   profiles:
     active: dev
   # mysql数据库连接
