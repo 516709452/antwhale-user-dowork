@@ -1,0 +1,36 @@
+# 服务端口
+server:
+  port: 8032
+# 服务名
+spring:
+  application:
+    name: antwhale-user-dowork
+  profiles:
+    active: dev
+  # mysql数据库连接
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/anywhale?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+  #返回json的全局时间格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    jackson:
+      time-zone: GMT+8
+  #redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    # 连接超时时间
+    timeout: 3000
+  #上传文件大小设置
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+#mybatis日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

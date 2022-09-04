@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.antwhale</groupId>
-    <artifactId>antwhale_backstage_dowork</artifactId>
+    <artifactId>antwhale_user_dowork</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>antwhale-backstage-dowork-code</module>
-        <module>antwhale-backstage-dowork-common</module>
-        <module>antwhale-backstage-dowork-service</module>
+        <module>antwhale-user-dowork-code</module>
+        <module>antwhale-user-dowork-common</module>
+        <module>antwhale-user-dowork-service</module>
     </modules>
 
     <parent>
@@ -101,18 +101,6 @@
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.aliyun</groupId>
-                <artifactId>aliyun-java-sdk-core</artifactId>
-                <version>${aliyun.version}</version>
-            </dependency>
-
-            <!--aliyunOSS-->
-            <dependency>
-                <groupId>com.aliyun.oss</groupId>
-                <artifactId>aliyun-sdk-oss</artifactId>
-                <version>${aliyun.oss.version}</version>
-            </dependency>
 
             <!--日期时间工具-->
             <dependency>
@@ -121,11 +109,6 @@
                 <version>${jodatime.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.xuxueli</groupId>
-                <artifactId>xxl-job-core</artifactId>
-                <version>${xxl-job.version}</version>
-            </dependency>
             <!--swagger-->
             <dependency>
                 <groupId>io.springfox</groupId>

@@ -1,8 +1,0 @@
-org\antwhale\blo\WeifxUserInfoBLO.class
-org\antwhale\blo\impl\WeifxUserInfoBLOImpl.class
-org\antwhale\mapper\WeifxUserInfoMapper.class
-org\antwhale\App.class
-org\antwhale\bpo\impl\UserInfoBPOImpl.class
-org\antwhale\controller\UserInfoController.class
-org\antwhale\bpo\UserInfoBPO.class
-org\antwhale\bpo\impl\UserInfoBPOImpl$1.class
