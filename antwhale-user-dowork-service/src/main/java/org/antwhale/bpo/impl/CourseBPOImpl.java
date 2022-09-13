@@ -23,7 +23,7 @@ public class CourseBPOImpl implements CourseBPO {
     @Override
     public void queryCourse(String filePath) {
         if(CommonUtils.IsNull(filePath)){
-            tencentCOSHandler.queryTencentCOSFromBucket(TencentCosAccountEnum.BasciCoursePath.getValue());
+            tencentCOSHandler.queryMediaInfo();
         }
 
     }

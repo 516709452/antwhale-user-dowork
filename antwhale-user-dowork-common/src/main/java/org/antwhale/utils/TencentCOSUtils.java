@@ -6,6 +6,7 @@ import com.qcloud.cos.auth.BasicCOSCredentials;
 import com.qcloud.cos.auth.COSCredentials;
 import com.qcloud.cos.http.HttpProtocol;
 import com.qcloud.cos.region.Region;
+import com.tencentcloudapi.common.Credential;
 import org.antwhale.code.TencentCosAccountEnum;
 
 /**
@@ -18,7 +19,7 @@ public class TencentCOSUtils {
     /**
      * @author 何欢
      * @Date 20:43 2022/8/29
-     * @Description 获取COSClient实例
+     * @Description 获取COSClient实例【存储桶用】
      **/
     public static COSClient getCOSClient() {
         // 1 初始化用户身份信息（secretId, secretKey）。
@@ -35,5 +36,17 @@ public class TencentCOSUtils {
         clientConfig.setHttpProtocol(HttpProtocol.https);
         // 3 生成 cos 客户端。
         return new COSClient(cred, clientConfig);
+    }
+
+    /**
+    *@author 何欢
+    *@Date 21:53 2022/9/5
+    *@Description 获取Credential实例【视频点播用】
+    **/
+    public static Credential getCredential(){
+        String secretId = TencentCosAccountEnum.getCredentialSecretId.getValue();
+        String secretKey = TencentCosAccountEnum.getCredentialSecretKey.getValue();
+        Credential cred = new Credential(secretId, secretKey);
+        return cred;
     }
 }
