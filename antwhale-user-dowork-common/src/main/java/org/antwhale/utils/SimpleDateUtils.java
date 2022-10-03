@@ -24,6 +24,8 @@ public class SimpleDateUtils {
                 return DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
             case "yyyy_mm_dd":
                 return DateTimeFormatter.ofPattern("yyyy-mm-dd");
+            case "yyyy-MM-dd HH:mm:ss":
+                return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             default:
                 return null;
         }
@@ -62,11 +64,11 @@ public class SimpleDateUtils {
      * @Param
      * @Return
      **/
-    public static LocalDateTime formatStringToLocalDateTime(String localDateTime, String format) {
+    public static LocalDateTime formatStringToLocalDateTime(String localDateTime) {
         if ("".equals(localDateTime)) {
             return null;
         }
-        return LocalDate.parse(localDateTime, FormatFactory(format)).atStartOfDay();
+        return LocalDate.parse(localDateTime, FormatFactory("yyyy-MM-dd HH:mm:ss")).atStartOfDay();
     }
 
     /**

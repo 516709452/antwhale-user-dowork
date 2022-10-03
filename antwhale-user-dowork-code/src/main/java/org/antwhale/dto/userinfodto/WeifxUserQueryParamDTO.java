@@ -45,7 +45,7 @@ public class WeifxUserQueryParamDTO{
     private Long commonUserinfoId;
 
     @ApiModelProperty(value = "数据有效标识")
-    private String commonFlag;
+    private String commonValidFlag;
 
     @ApiModelProperty(value = "当前页码")
     private Long currentPage;

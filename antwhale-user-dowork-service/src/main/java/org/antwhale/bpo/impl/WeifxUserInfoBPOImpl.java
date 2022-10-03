@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.antwhale.blo.WeifxUserInfoBLO;
-import org.antwhale.bpo.UserInfoBPO;
+import org.antwhale.bpo.WeifxUserInfoBPO;
 import org.antwhale.dto.userinfodto.WeifxUserImportParamDTO;
 import org.antwhale.dto.userinfodto.WeifxUserQueryParamDTO;
 import org.antwhale.entity.WeifxUserInfo;
@@ -33,12 +33,9 @@ import java.util.stream.Collectors;
  * @Description:
  */
 @Service
-public class UserInfoBPOImpl implements UserInfoBPO {
+public class WeifxUserInfoBPOImpl implements WeifxUserInfoBPO {
     @Autowired
     private WeifxUserInfoBLO weifxUserInfoBLO;
-
-    @Autowired
-    private WeifxUserInfoMapper weifxUserInfoMapper;
 
     /**
      * @author 何欢
@@ -124,14 +121,14 @@ public class UserInfoBPOImpl implements UserInfoBPO {
                 .ifPresent(weifxUserinfoLevel -> queryWrapper.eq("weifx_userinfo_level", weifxUserinfoLevel));
         Optional.ofNullable(weifxUserQueryParamDTO.getCommonUserinfoId())
                 .ifPresent(commonUserinfoId -> queryWrapper.eq("common_userinfo_id", commonUserinfoId));
-        if (CommonUtils.IsNotNull(weifxUserQueryParamDTO.getWeifxUserinfoRegistertime())) {
+        if (CommonUtils.isNotNull(weifxUserQueryParamDTO.getWeifxUserinfoRegistertime())) {
             String endDate;
             String startDate;
             List<String> registerTimeList = weifxUserQueryParamDTO.getWeifxUserinfoRegistertime();
-            if (CommonUtils.IsNull(registerTimeList.get(0))) {
+            if (CommonUtils.isNull(registerTimeList.get(0))) {
                 throw new RuntimeException("请填写开始日期");
             }
-            if (CommonUtils.IsNull(registerTimeList.get(1))) {
+            if (CommonUtils.isNull(registerTimeList.get(1))) {
                 throw new RuntimeException("请填写终止日期");
             }
             startDate = weifxUserQueryParamDTO.getWeifxUserinfoRegistertime().get(0);
@@ -141,7 +138,7 @@ public class UserInfoBPOImpl implements UserInfoBPO {
         Long currentPage = weifxUserQueryParamDTO.getCurrentPage();
         Long pageSize = weifxUserQueryParamDTO.getPageSize();
         IPage<WeifxUserInfo> WeifxUserInfoPage = weifxUserInfoBLO.page(new Page(currentPage, pageSize), queryWrapper);
-        if (CommonUtils.IsNull(WeifxUserInfoPage.getRecords())) {
+        if (CommonUtils.isNull(WeifxUserInfoPage.getRecords())) {
             throw new RuntimeException("根据条件为查询到用户信息");
         }
         return WeifxUserInfoPage;
@@ -161,7 +158,7 @@ public class UserInfoBPOImpl implements UserInfoBPO {
         List<WeifxUserInfo> weifxUserInfos = weifxUserInfoBLO.list(
                 new QueryWrapper<WeifxUserInfo>().in("weifx_userinfo_id", weifxUserinfoId)
         );
-        if (CommonUtils.IsNull(weifxUserInfos)) {
+        if (CommonUtils.isNull(weifxUserInfos)) {
             return cachedDataList;
         }
         String weifxUserinfoIdFilter = weifxUserInfos

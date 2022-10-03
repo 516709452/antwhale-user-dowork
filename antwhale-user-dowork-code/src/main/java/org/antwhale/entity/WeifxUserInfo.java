@@ -1,5 +1,6 @@
 package org.antwhale.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -54,20 +55,20 @@ public class WeifxUserInfo {
     @ApiModelProperty(value = "鲸战队用户id")
     private Long commonUserinfoId;
 
-    @TableField("common_flag")
+    @TableField("validflag")
     @ApiModelProperty(value = "数据有效标识")
-    private String commonFlag;
+    private String validflag;
 
-    @TableField("common_inserttime")
+    @TableField(value = "createtime", fill = FieldFill.INSERT)
     @ApiModelProperty(value = "数据新增时间")
-    private String commonInserttime;
+    private String createtime;
 
-    @TableField("common_updatetime")
+    @TableField(value = "updatetime", fill = FieldFill.UPDATE)
     @ApiModelProperty(value = "数据修改时间")
-    private String commonUpdatetime;
+    private String updatetime;
 
-    @TableField("common_operationid")
+    @TableField("operationid")
     @ApiModelProperty(value = "业务操作序号")
-    private String commonOperationid;
+    private String operationid;
 
 }

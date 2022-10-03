@@ -15,7 +15,7 @@ import java.util.List;
  * @Date: 2022/8/1816:01
  * @Description:
  */
-public interface UserInfoBPO {
+public interface WeifxUserInfoBPO {
     /**
      *@author 何欢
      *@Date 18:55 2022/8/22

@@ -41,7 +41,7 @@ public class WeifxUserImportParamDTO {
     private Long commonUserinfoId;
 
     @ExcelProperty("数据有效标识")
-    private String commonFlag;
+    private String commonValidFlag;
 
     @ExcelProperty("数据新增时间")
     private String commonInserttime;

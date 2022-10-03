@@ -1,9 +1,8 @@
 package org.antwhale.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
-import org.antwhale.bpo.UserInfoBPO;
+import org.antwhale.bpo.WeifxUserInfoBPO;
 import org.antwhale.dto.userinfodto.WeifxUserQueryParamDTO;
 import org.antwhale.entity.WeifxUserInfo;
 import org.antwhale.utils.CommonUtils;
@@ -11,7 +10,6 @@ import org.antwhale.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,9 +23,9 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-public class UserInfoController {
+public class WeifxUserInfoController {
     @Autowired
-    private UserInfoBPO userInfoBPO;
+    private WeifxUserInfoBPO weifxUserInfoBPO;
 
     /**
     *@author 何欢
@@ -36,8 +34,8 @@ public class UserInfoController {
     **/
     @PostMapping("/userinfo/importWeifxUser")
     public ResultVo<List<WeifxUserInfo>> importWeifxUserController(MultipartFile file) throws IOException {
-        List<WeifxUserInfo> weifxUserInfos = userInfoBPO.importWeifxUser(file);
-        if(CommonUtils.IsNull(weifxUserInfos)){
+        List<WeifxUserInfo> weifxUserInfos = weifxUserInfoBPO.importWeifxUser(file);
+        if(CommonUtils.isNull(weifxUserInfos)){
            return ResultVo.fail(weifxUserInfos,"导入成功，但导入条数为空");
         }
         return ResultVo.ok(weifxUserInfos,"导入成功");
@@ -50,7 +48,7 @@ public class UserInfoController {
     **/
     @PostMapping("/userinfo/queryWeifxUser")
     public ResultVo<IPage<WeifxUserInfo>> queryWeifxUser(@RequestBody WeifxUserQueryParamDTO weifxUserQueryParamDTO) throws Exception {
-        IPage<WeifxUserInfo> weifxUserInfos = userInfoBPO.queryWeifxUser(weifxUserQueryParamDTO);
+        IPage<WeifxUserInfo> weifxUserInfos = weifxUserInfoBPO.queryWeifxUser(weifxUserQueryParamDTO);
         return ResultVo.ok(weifxUserInfos,"查询微分销用户信息成功");
     }
 
