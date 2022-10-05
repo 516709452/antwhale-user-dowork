@@ -72,11 +72,4 @@ public class CommonUserInfo {
     @TableField("operationid")
     @ApiModelProperty(value = "业务操作序号")
     private String operationid;
-
-    public void setCommonUserinfoPassword(String commonUserinfoPassword) {
-        //密码【BCryptPasswordEncoder加密】
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        commonUserinfoPassword = bCryptPasswordEncoder.encode(commonUserinfoPassword);
-        this.commonUserinfoPassword = commonUserinfoPassword;
-    }
 }

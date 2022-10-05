@@ -34,12 +34,90 @@ public class CommonUserInfoBPOImpl implements CommonUserInfoBPO {
     private SequenceService sequenceService;
 
     /**
-    *@author 何欢
-    *@Date 11:50 2022/10/2
-    *@Description 用户公共信息查询
-    **/
+     * @author 何欢
+     * @Date 11:50 2022/10/2
+     * @Description 用户公共信息查询
+     **/
     @Override
-    public IPage<CommonUserInfo> queryCommonUser(CommonUserParamDTO commonUserQueryParamDTO) {
+    public Page<CommonUserInfo> queryCommonUser(CommonUserParamDTO commonUserQueryParamDTO) {
+        //Mybatis查询参数组装
+        QueryWrapper<CommonUserInfo> queryWrapper = getQueryWrapper(commonUserQueryParamDTO);
+        //分页参数，默认第1页，10条数据
+        Long currentPage = 1L;
+        Long pageSize = 10L;
+        if (CommonUtils.isNotNull(commonUserQueryParamDTO.getCurrentPage())) {
+            currentPage = commonUserQueryParamDTO.getCurrentPage();
+        }
+        if (CommonUtils.isNotNull(commonUserQueryParamDTO.getPageSize())) {
+            pageSize = commonUserQueryParamDTO.getPageSize();
+        }
+        //分页查询
+        Page<CommonUserInfo> commonUserInfoIPage = commonUserInfoBLO.page(new Page(currentPage, pageSize), queryWrapper);
+        if (CommonUtils.isNull(commonUserInfoIPage.getRecords())) {
+            throw new RuntimeException("根据条件为查询到用户信息");
+        }
+        return commonUserInfoIPage;
+    }
+
+    /**
+     * @author 何欢
+     * @Date 21:42 2022/10/1
+     * @Description 头像上传 - 每个用户每天只会留下一个头像
+     **/
+    @Override
+    public String uploadAvatar(MultipartFile file) {
+        String userIdSeq = sequenceService.getUserIdSeq();
+        //获取阿里云OSS实例
+        OSS ossClient = AliyunOSSUtils.getOssClient();
+        // 填写Bucket名称
+        String bucketName = "antwhalebucket";
+//        String nowDate = SimpleDateUtils.getNowDate("yyyyMMdd");
+        String fileSuffix = CommonUtils.getFileSuffix(file);
+        String upLoadName = "avatar/" + userIdSeq + "." + fileSuffix;
+        try {
+            InputStream inputStream = file.getInputStream();
+            // 上传文件。
+            ossClient.putObject(bucketName, upLoadName, inputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ossClient != null) {
+                ossClient.shutdown();
+            }
+        }
+        return userIdSeq;
+    }
+
+    /**
+     * @author 何欢
+     * @Date 11:51 2022/10/2
+     * @Description 新增用户
+     **/
+    @Override
+    public String addUserInfo(CommonUserParamDTO commonUserParamDTO) {
+        //密码【BCryptPasswordEncoder加密】
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        CommonUserInfo commonUserInfo = new CommonUserInfo();
+        commonUserInfo.setCommonUserinfoId(commonUserParamDTO.getCommonUserinfoId());
+        commonUserInfo.setCommonUserinfoAccount(commonUserParamDTO.getCommonUserinfoPhone());
+        commonUserInfo.setCommonUserinfoHeadImg(commonUserParamDTO.getCommonUserinfoHeadImg());
+        commonUserInfo.setCommonUserinfoUsername(commonUserParamDTO.getCommonUserinfoUsername());
+        commonUserInfo.setCommonUserinfoSex("1");
+        commonUserInfo.setCommonUserinfoPassword("123456");
+        commonUserInfo.setValidflag("1");
+        commonUserInfo.setCommonUserinfoPhone(commonUserParamDTO.getCommonUserinfoPhone());
+        commonUserInfo.setCommonUserinfoAuth(commonUserParamDTO.getCommonUserinfoAuth());
+        commonUserInfo.setCommonUserinfoIntroduction(commonUserParamDTO.getCommonUserinfoIntroduction());
+        commonUserInfoBLO.save(commonUserInfo);
+        return "ok";
+    }
+
+    /**
+     * @author 何欢
+     * @Date 0:53 2022/10/5
+     * @Description 查询用户信息参数校验
+     **/
+    private QueryWrapper<CommonUserInfo> getQueryWrapper(CommonUserParamDTO commonUserQueryParamDTO) {
         QueryWrapper<CommonUserInfo> queryWrapper = new QueryWrapper<>();
 
         Optional.ofNullable(commonUserQueryParamDTO.getCommonUserinfoId())
@@ -72,65 +150,6 @@ public class CommonUserInfoBPOImpl implements CommonUserInfoBPO {
             endDate = commonUserQueryParamDTO.getUserinfoRegistertime().get(1);
             queryWrapper.apply("date_format(createtime,'%Y-%m-%d') between {0} and {1}", startDate, endDate);
         }
-        Long currentPage = commonUserQueryParamDTO.getCurrentPage();
-        Long pageSize = commonUserQueryParamDTO.getPageSize();
-        IPage<CommonUserInfo> commonUserInfoIPage = commonUserInfoBLO.page(new Page(currentPage, pageSize), queryWrapper);
-        if (CommonUtils.isNull(commonUserInfoIPage.getRecords())) {
-            throw new RuntimeException("根据条件为查询到用户信息");
-        }
-        return commonUserInfoIPage;
-    }
-
-    /**
-    *@author 何欢
-    *@Date 21:42 2022/10/1
-    *@Description 头像上传 - 每个用户每天只会留下一个头像
-    **/
-    @Override
-    public String uploadAvatar(MultipartFile file) {
-        String userIdSeq = sequenceService.getUserIdSeq();
-        //获取阿里云OSS实例
-        OSS ossClient = AliyunOSSUtils.getOssClient();
-        // 填写Bucket名称
-        String bucketName = "antwhalebucket";
-//        String nowDate = SimpleDateUtils.getNowDate("yyyyMMdd");
-        String fileSuffix = CommonUtils.getFileSuffix(file);
-        String upLoadName = "avatar/" + userIdSeq + "." + fileSuffix;
-        try {
-            InputStream inputStream = file.getInputStream();
-            // 上传文件。
-            ossClient.putObject(bucketName, upLoadName, inputStream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (ossClient != null) {
-                ossClient.shutdown();
-            }
-        }
-        return userIdSeq;
-    }
-
-    /**
-    *@author 何欢
-    *@Date 11:51 2022/10/2
-    *@Description 新增用户
-    **/
-    @Override
-    public String addUserInfo(CommonUserParamDTO commonUserParamDTO) {
-        //密码【BCryptPasswordEncoder加密】
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        CommonUserInfo commonUserInfo = new CommonUserInfo();
-        commonUserInfo.setCommonUserinfoId(commonUserParamDTO.getCommonUserinfoId());
-        commonUserInfo.setCommonUserinfoAccount(commonUserParamDTO.getCommonUserinfoPhone());
-        commonUserInfo.setCommonUserinfoHeadImg(commonUserParamDTO.getCommonUserinfoHeadImg());
-        commonUserInfo.setCommonUserinfoUsername(commonUserParamDTO.getCommonUserinfoUsername());
-        commonUserInfo.setCommonUserinfoSex("1");
-        commonUserInfo.setCommonUserinfoPassword("123456");
-        commonUserInfo.setValidflag("1");
-        commonUserInfo.setCommonUserinfoPhone(commonUserParamDTO.getCommonUserinfoPhone());
-        commonUserInfo.setCommonUserinfoAuth(commonUserParamDTO.getCommonUserinfoAuth());
-        commonUserInfo.setCommonUserinfoIntroduction(commonUserParamDTO.getCommonUserinfoIntroduction());
-        commonUserInfoBLO.save(commonUserInfo);
-        return "ok";
+        return queryWrapper;
     }
 }

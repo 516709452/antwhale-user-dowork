@@ -12,21 +12,22 @@
         <module>antwhale-user-dowork-code</module>
         <module>antwhale-user-dowork-common</module>
         <module>antwhale-user-dowork-service</module>
+        <module>antwhale-user-dowork-api</module>
     </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.1.RELEASE</version>
+        <version>2.3.12.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
         <skipTests>true</skipTests>
         <java.version>1.8</java.version>
-        <cloud.version>Hoxton.RELEASE</cloud.version>
-        <alibaba.version>2.2.0.RELEASE</alibaba.version>
-        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+        <cloud.version>Hoxton.SR12</cloud.version>
+        <alibaba.version>2.2.9.RELEASE</alibaba.version>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <mysql.version>5.1.46</mysql.version>
         <swagger.version>2.9.2</swagger.version>
         <jwt.version>0.7.0</jwt.version>

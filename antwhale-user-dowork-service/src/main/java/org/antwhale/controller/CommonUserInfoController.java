@@ -1,6 +1,7 @@
 package org.antwhale.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.antwhale.bpo.CommonUserInfoBPO;
 import org.antwhale.dto.userinfodto.CommonUserParamDTO;
@@ -19,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Slf4j
 @RestController
-public class CommonUserInfoController {
+public class CommonUserInfoController{
     @Autowired
     private CommonUserInfoBPO commonUserInfoBPO;
 
@@ -29,8 +30,8 @@ public class CommonUserInfoController {
     *@Description 用户公共信息查询
     **/
     @PostMapping("/userinfo/queryCommonUser")
-    public ResultVo<IPage<CommonUserInfo>> queryCommonUser(@RequestBody CommonUserParamDTO commonUserQueryParamDTO) {
-        IPage<CommonUserInfo> commonUserInfos = commonUserInfoBPO.queryCommonUser(commonUserQueryParamDTO);
+    public ResultVo<Page<CommonUserInfo>> queryCommonUser(@RequestBody CommonUserParamDTO commonUserQueryParamDTO) {
+        Page<CommonUserInfo> commonUserInfos = commonUserInfoBPO.queryCommonUser(commonUserQueryParamDTO);
         return ResultVo.ok(commonUserInfos,"查询用户信息成功");
     }
 

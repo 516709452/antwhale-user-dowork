@@ -1,9 +1,8 @@
 package org.antwhale.bpo;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.antwhale.dto.userinfodto.CommonUserParamDTO;
 import org.antwhale.entity.CommonUserInfo;
-import org.antwhale.vo.ResultVo;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -17,7 +16,7 @@ public interface CommonUserInfoBPO {
      * @Date 20:35 2022/9/26
      * @Description 用户公共信息查询
      **/
-    IPage<CommonUserInfo> queryCommonUser(CommonUserParamDTO commonUserQueryParamDTO);
+    Page<CommonUserInfo> queryCommonUser(CommonUserParamDTO commonUserQueryParamDTO);
 
     /**
     *@author 何欢
