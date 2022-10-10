@@ -6,8 +6,9 @@
 
     <groupId>org.antwhale</groupId>
     <artifactId>antwhale_user_dowork</artifactId>
+    <version>${revision}</version>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>antwhale-user-dowork-code</module>
         <module>antwhale-user-dowork-common</module>
@@ -23,6 +24,7 @@
     </parent>
 
     <properties>
+        <revision>1.0.0-snapshot</revision>
         <skipTests>true</skipTests>
         <java.version>1.8</java.version>
         <cloud.version>Hoxton.SR12</cloud.version>

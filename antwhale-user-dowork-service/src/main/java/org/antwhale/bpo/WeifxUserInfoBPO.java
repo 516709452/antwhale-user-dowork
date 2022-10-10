@@ -1,10 +1,8 @@
 package org.antwhale.bpo;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.antwhale.dto.userinfodto.WeifxUserImportParamDTO;
 import org.antwhale.dto.userinfodto.WeifxUserQueryParamDTO;
 import org.antwhale.entity.WeifxUserInfo;
-import org.antwhale.vo.ResultVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

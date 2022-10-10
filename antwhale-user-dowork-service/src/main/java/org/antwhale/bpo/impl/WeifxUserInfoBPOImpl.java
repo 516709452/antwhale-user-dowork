@@ -13,7 +13,6 @@ import org.antwhale.bpo.WeifxUserInfoBPO;
 import org.antwhale.dto.userinfodto.WeifxUserImportParamDTO;
 import org.antwhale.dto.userinfodto.WeifxUserQueryParamDTO;
 import org.antwhale.entity.WeifxUserInfo;
-import org.antwhale.mapper.WeifxUserInfoMapper;
 import org.antwhale.utils.CommonUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

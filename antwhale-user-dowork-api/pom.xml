@@ -2,32 +2,44 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>antwhale_user_dowork</artifactId>
-        <groupId>org.antwhale</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>antwhale-user-dowork-api</artifactId>
+    <groupId>org.antwhale</groupId>
+    <version>1.0.0-snapshot</version>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <alibaba.version>2.2.9.RELEASE</alibaba.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <dependencies>
-        <!--实体工程-->
         <dependency>
-            <groupId>org.antwhale</groupId>
-            <artifactId>antwhale-user-dowork-code</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
         </dependency>
 
         <!-- 服务调用feign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>${alibaba.version}</version>
+        </dependency>
+
+        <!--mybatis-plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+
+        <!--swagger-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
     </dependencies>
 

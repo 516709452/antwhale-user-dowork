@@ -2,7 +2,6 @@ package org.antwhale.bpo.impl;
 
 import com.aliyun.oss.OSS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.antwhale.blo.CommonUserInfoBLO;
 import org.antwhale.bpo.CommonUserInfoBPO;
