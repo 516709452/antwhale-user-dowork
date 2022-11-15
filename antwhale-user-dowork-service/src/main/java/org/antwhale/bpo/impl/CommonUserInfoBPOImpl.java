@@ -21,7 +21,7 @@ import java.util.Optional;
 
 /**
  * @Author: 何欢
- * @Date: 2022/9/2619:39
+ * @Date: 2022/9/26 19:39
  * @Description:
  */
 @Service
@@ -31,7 +31,6 @@ public class CommonUserInfoBPOImpl implements CommonUserInfoBPO {
 
     @Autowired
     private SequenceService sequenceService;
-
     /**
      * @author 何欢
      * @Date 11:50 2022/10/2
@@ -102,7 +101,7 @@ public class CommonUserInfoBPOImpl implements CommonUserInfoBPO {
         commonUserInfo.setCommonUserinfoHeadImg(commonUserParamDTO.getCommonUserinfoHeadImg());
         commonUserInfo.setCommonUserinfoUsername(commonUserParamDTO.getCommonUserinfoUsername());
         commonUserInfo.setCommonUserinfoSex("1");
-        commonUserInfo.setCommonUserinfoPassword("123456");
+        commonUserInfo.setCommonUserinfoPassword(bCryptPasswordEncoder.encode("123456"));
         commonUserInfo.setValidflag("1");
         commonUserInfo.setCommonUserinfoPhone(commonUserParamDTO.getCommonUserinfoPhone());
         commonUserInfo.setCommonUserinfoAuth(commonUserParamDTO.getCommonUserinfoAuth());

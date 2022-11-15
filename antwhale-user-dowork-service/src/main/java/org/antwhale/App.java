@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @MapperScan("org.antwhale.mapper")
 @EnableFeignClients
-@SpringBootApplication(scanBasePackages = {"org.antwhale"})
+@SpringBootApplication(scanBasePackages = {"org.antwhale","com.antwhale"})
 public class App {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(App.class, args);

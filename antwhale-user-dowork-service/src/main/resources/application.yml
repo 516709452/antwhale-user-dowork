@@ -51,6 +51,13 @@ xxl:
       logpath: /data/xxl-job/jobhandler  #执行器运行日志文件存储磁盘路径
       logretentiondays: -1  #调度中心日志表数据保存天数，过期日志自动清理；限制大于等于7时生效，否则, 如-1，关闭自动清理功能
     accessToken: #调度中心通讯TOKEN [选填]：非空时启用
+feign:
+  client:
+    config:
+      default:
+        #不设置connectTimeout会导致readTimeout设置不生效
+        connectTimeout: 3000
+        readTimeout: 6000
 #feign - 各个服务名称配置
 feignclient:
   userdowork:

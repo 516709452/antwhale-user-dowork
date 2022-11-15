@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @Author: 何欢
  * @Date: 2022/7/21 12:06
@@ -15,7 +17,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "全局统一返回结果")
-public class ResultVo<T> {
+public class ResultVo<T> implements Serializable {
+
+    private static final long serialVersionUID = -9162851853850989617L;
 
     @ApiModelProperty(value = "返回码")
     private Integer code;

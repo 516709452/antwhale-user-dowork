@@ -68,8 +68,4 @@ public class CommonUserInfo {
     @TableField(value = "updatetime", fill = FieldFill.UPDATE)
     @ApiModelProperty(value = "数据修改时间")
     private String updatetime;
-
-    @TableField("operationid")
-    @ApiModelProperty(value = "业务操作序号")
-    private String operationid;
 }
