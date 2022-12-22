@@ -1,6 +1,5 @@
 package org.antwhale.bpo.impl;
 
-import com.aliyun.oss.OSS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.antwhale.blo.CommonUserInfoBLO;
@@ -8,7 +7,6 @@ import org.antwhale.bpo.CommonUserInfoBPO;
 import org.antwhale.dto.userinfodto.CommonUserParamDTO;
 import org.antwhale.entity.CommonUserInfo;
 import org.antwhale.mapper.SequenceService;
-import org.antwhale.utils.AliyunOSSUtils;
 import org.antwhale.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -66,23 +64,23 @@ public class CommonUserInfoBPOImpl implements CommonUserInfoBPO {
     public String uploadAvatar(MultipartFile file) {
         String userIdSeq = sequenceService.getUserIdSeq();
         //获取阿里云OSS实例
-        OSS ossClient = AliyunOSSUtils.getOssClient();
-        // 填写Bucket名称
-        String bucketName = "antwhalebucket";
-//        String nowDate = SimpleDateUtils.getNowDate("yyyyMMdd");
-        String fileSuffix = CommonUtils.getFileSuffix(file);
-        String upLoadName = "avatar/" + userIdSeq + "." + fileSuffix;
-        try {
-            InputStream inputStream = file.getInputStream();
-            // 上传文件。
-            ossClient.putObject(bucketName, upLoadName, inputStream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (ossClient != null) {
-                ossClient.shutdown();
-            }
-        }
+//        OSS ossClient = AliyunOSSUtils.getOssClient();
+//        // 填写Bucket名称
+//        String bucketName = "antwhalebucket";
+////        String nowDate = SimpleDateUtils.getNowDate("yyyyMMdd");
+//        String fileSuffix = CommonUtils.getFileSuffix(file);
+//        String upLoadName = "avatar/" + userIdSeq + "." + fileSuffix;
+//        try {
+//            InputStream inputStream = file.getInputStream();
+//            // 上传文件。
+//            ossClient.putObject(bucketName, upLoadName, inputStream);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (ossClient != null) {
+//                ossClient.shutdown();
+//            }
+//        }
         return userIdSeq;
     }
 
