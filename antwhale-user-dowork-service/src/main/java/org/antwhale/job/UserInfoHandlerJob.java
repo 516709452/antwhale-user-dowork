@@ -53,7 +53,7 @@ public class UserInfoHandlerJob {
                     commonUserInfo.setCommonUserinfoAuth("1");
                     LocalDateTime userinfoRegistertime = SimpleDateUtils.formatStringToLocalDateTime(weifxUserInfo.getWeifxUserinfoRegistertime());
                     commonUserInfo.setCreatetime(SimpleDateUtils.formatLocalDateTimeToString(userinfoRegistertime,"yyyyMMdd"));
-                    commonUserInfo.setWeifxUserinfoId(CommonUtils.getLongValue(weifxUserInfo.getWeifxUserinfoId()));
+                    commonUserInfo.setWeifxUserinfoId(weifxUserInfo.getWeifxUserinfoId());
                     commonUserInfo.setValidflag("1");
                     commonUserInfoList.add(commonUserInfo);
                 }

@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class CommonUserParamDTO {
     @ApiModelProperty(value = "公共信息表_用户id")
-    private Long commonUserinfoId;
+    private String commonUserinfoId;
 
     @ApiModelProperty(value = "公共信息表_用户登录账号")
     private String commonUserinfoAccount;
@@ -34,7 +34,7 @@ public class CommonUserParamDTO {
     private String commonUserinfoAuth;
 
     @ApiModelProperty(value = "微分销用户id")
-    private Long weifxUserinfoId;
+    private String weifxUserinfoId;
 
     @ApiModelProperty(value = "数据有效标识")
     private String validflag;

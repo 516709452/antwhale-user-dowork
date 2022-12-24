@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class CommonUserInfo {
     @TableId(value = "common_userinfo_id",type = IdType.AUTO)
     @ApiModelProperty(value = "公共信息表_用户id")
-    private Long commonUserinfoId;
+    private String commonUserinfoId;
 
     @TableField(value = "common_userinfo_account")
     @ApiModelProperty(value = "公共信息表_用户登录账号")
@@ -55,7 +55,7 @@ public class CommonUserInfo {
 
     @TableField(value = "weifx_userinfo_id")
     @ApiModelProperty(value = "微分销用户id")
-    private Long weifxUserinfoId;
+    private String weifxUserinfoId;
 
     @TableField("validflag")
     @ApiModelProperty(value = "数据有效标识")

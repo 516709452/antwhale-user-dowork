@@ -26,7 +26,7 @@ public class CommonUserInfoController{
     /**
     *@author 何欢
     *@Date 20:35 2022/9/26
-    *@Description 用户公共信息查询
+    *@Description 用户基本信息查询
     **/
     @PostMapping("/userinfo/queryCommonUser")
     public ResultVo<Page<CommonUserInfo>> queryCommonUser(@RequestBody CommonUserParamDTO commonUserQueryParamDTO) {

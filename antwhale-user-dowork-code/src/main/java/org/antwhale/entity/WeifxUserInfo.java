@@ -17,7 +17,7 @@ import lombok.Data;
 public class WeifxUserInfo {
     @TableId(value = "weifx_userinfo_id")
     @ApiModelProperty(value = "微分销用户id")
-    private Long weifxUserinfoId;
+    private String weifxUserinfoId;
 
     @TableField("weifx_userinfo_name")
     @ApiModelProperty(value = "微分销用户(真实姓名)")
@@ -53,7 +53,7 @@ public class WeifxUserInfo {
 
     @TableField("common_userinfo_id")
     @ApiModelProperty(value = "鲸战队用户id")
-    private Long commonUserinfoId;
+    private String commonUserinfoId;
 
     @TableField("validflag")
     @ApiModelProperty(value = "数据有效标识")
