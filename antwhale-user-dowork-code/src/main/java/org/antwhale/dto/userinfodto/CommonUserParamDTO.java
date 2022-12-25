@@ -15,6 +15,9 @@ public class CommonUserParamDTO {
     @ApiModelProperty(value = "公共信息表_用户id")
     private String commonUserinfoId;
 
+    @ApiModelProperty(value = "公共信息表_用户id")
+    private List<String> commonUserinfoIdList;
+
     @ApiModelProperty(value = "公共信息表_用户登录账号")
     private String commonUserinfoAccount;
 

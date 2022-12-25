@@ -1,11 +1,11 @@
 package org.antwhale.controller;
 
+import com.antwhale.framework.utils.CommonUtils;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.antwhale.bpo.WeifxUserInfoBPO;
 import org.antwhale.dto.userinfodto.WeifxUserQueryParamDTO;
 import org.antwhale.entity.WeifxUserInfo;
-import org.antwhale.utils.CommonUtils;
 import org.antwhale.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +35,7 @@ public class WeifxUserInfoController {
     @PostMapping("/userinfo/importWeifxUser")
     public ResultVo<List<WeifxUserInfo>> importWeifxUserController(MultipartFile file) throws IOException {
         List<WeifxUserInfo> weifxUserInfos = weifxUserInfoBPO.importWeifxUser(file);
-        if(CommonUtils.isNull(weifxUserInfos)){
+        if(CommonUtils.IsNull(weifxUserInfos)){
            return ResultVo.fail(weifxUserInfos,"导入成功，但导入条数为空");
         }
         return ResultVo.ok(weifxUserInfos,"导入成功");

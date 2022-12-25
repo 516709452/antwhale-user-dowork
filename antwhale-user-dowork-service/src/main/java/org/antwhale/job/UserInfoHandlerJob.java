@@ -1,12 +1,12 @@
 package org.antwhale.job;
 
+import com.antwhale.framework.utils.CommonUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xxl.job.core.biz.model.ReturnT;
 import org.antwhale.blo.CommonUserInfoBLO;
 import org.antwhale.blo.WeifxUserInfoBLO;
 import org.antwhale.entity.CommonUserInfo;
 import org.antwhale.entity.WeifxUserInfo;
-import org.antwhale.utils.CommonUtils;
 import org.antwhale.utils.SimpleDateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,7 +36,7 @@ public class UserInfoHandlerJob {
         List<WeifxUserInfo> weifxUserInfoList = weifxUserInfoBLO.list(
                 new QueryWrapper<WeifxUserInfo>().isNull("validflag")
         );
-        if(CommonUtils.isNull(weifxUserInfoList)){
+        if(CommonUtils.IsNull(weifxUserInfoList)){
             return ReturnT.SUCCESS;
         }
         weifxUserInfoList.stream().forEach(weifxUserInfo -> weifxUserInfo.setValidflag("1"));
