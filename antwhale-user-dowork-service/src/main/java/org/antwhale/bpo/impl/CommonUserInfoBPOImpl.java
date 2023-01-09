@@ -148,6 +148,12 @@ public class CommonUserInfoBPOImpl implements CommonUserInfoBPO {
         eduCourseUserBLO.saveOrUpdateBatch(saveEduCourseUserParam);
     }
 
+    @Override
+    public List<EduCourseUser> queryUserCourse(String userId) {
+        List<EduCourseUser> eduCourseUserList = eduCourseUserBLO.list(new QueryWrapper<EduCourseUser>().eq("common_userinfo_id", userId));
+        return eduCourseUserList;
+    }
+
     /**
      * @author 何欢
      * @Date 17:52 2022/12/25

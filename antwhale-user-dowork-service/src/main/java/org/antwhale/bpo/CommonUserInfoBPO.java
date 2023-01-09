@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.antwhale.dto.course.UserCourseParamDTO;
 import org.antwhale.dto.userinfodto.CommonUserParamDTO;
 import org.antwhale.entity.CommonUserInfo;
+import org.antwhale.entity.EduCourseUser;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -48,4 +49,11 @@ public interface CommonUserInfoBPO {
      *@Description 分发课程给用户
      **/
     void assignCourse(UserCourseParamDTO userCourseParamDTO);
+
+    /**
+     * @author 何欢
+     * @Date 21:06 2022/12/28
+     * @Description 查询用户-课程映射表
+     **/
+    List<EduCourseUser> queryUserCourse(String userId);
 }
