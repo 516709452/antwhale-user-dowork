@@ -56,4 +56,11 @@ public interface CommonUserInfoBPO {
      * @Description 查询用户-课程映射表
      **/
     List<EduCourseUser> queryUserCourse(String userId);
+
+    /**
+     * @author 何欢
+     * @Date 11:48 2022/10/2
+     * @Description 修改用户
+     **/
+    void editUserInfo(CommonUserParamDTO commonUserParamDTO);
 }

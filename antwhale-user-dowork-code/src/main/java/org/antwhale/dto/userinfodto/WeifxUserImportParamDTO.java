@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class WeifxUserImportParamDTO {
     @ExcelProperty(index = 0)
-    private Long weifxUserinfoId;
+    private String weifxUserinfoId;
 
     @ExcelProperty("姓名")
     private String weifxUserinfoName;

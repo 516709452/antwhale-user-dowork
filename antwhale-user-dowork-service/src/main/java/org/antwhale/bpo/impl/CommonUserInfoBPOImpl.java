@@ -11,6 +11,7 @@ import org.antwhale.dto.userinfodto.CommonUserParamDTO;
 import org.antwhale.entity.CommonUserInfo;
 import org.antwhale.entity.EduCourseUser;
 import org.antwhale.mapper.SequenceService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -114,14 +115,15 @@ public class CommonUserInfoBPOImpl implements CommonUserInfoBPO {
      **/
     @Override
     public String addUserInfo(CommonUserParamDTO commonUserParamDTO) {
+        String userIdSeq = sequenceService.getUserIdSeq();
         //密码【BCryptPasswordEncoder加密】
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         CommonUserInfo commonUserInfo = new CommonUserInfo();
-        commonUserInfo.setCommonUserinfoId(commonUserParamDTO.getCommonUserinfoId());
+        commonUserInfo.setCommonUserinfoId(userIdSeq);
         commonUserInfo.setCommonUserinfoAccount(commonUserParamDTO.getCommonUserinfoPhone());
         commonUserInfo.setCommonUserinfoHeadImg(commonUserParamDTO.getCommonUserinfoHeadImg());
         commonUserInfo.setCommonUserinfoUsername(commonUserParamDTO.getCommonUserinfoUsername());
-        commonUserInfo.setCommonUserinfoSex("1");
+        commonUserInfo.setCommonUserinfoSex(commonUserParamDTO.getCommonUserinfoSex());
         commonUserInfo.setCommonUserinfoPassword(bCryptPasswordEncoder.encode("123456"));
         commonUserInfo.setValidflag("1");
         commonUserInfo.setCommonUserinfoPhone(commonUserParamDTO.getCommonUserinfoPhone());
@@ -152,6 +154,22 @@ public class CommonUserInfoBPOImpl implements CommonUserInfoBPO {
     public List<EduCourseUser> queryUserCourse(String userId) {
         List<EduCourseUser> eduCourseUserList = eduCourseUserBLO.list(new QueryWrapper<EduCourseUser>().eq("common_userinfo_id", userId));
         return eduCourseUserList;
+    }
+
+    /**
+     * @author 何欢
+     * @Date 11:48 2022/10/2
+     * @Description 修改用户
+     **/
+    @Override
+    public void editUserInfo(CommonUserParamDTO commonUserParamDTO) {
+        //参数校验
+        validSaveOrUpdateParam(commonUserParamDTO);
+
+        CommonUserInfo commonUserInfo = new CommonUserInfo();
+        BeanUtils.copyProperties(commonUserParamDTO,commonUserInfo);
+
+        commonUserInfoBLO.updateById(commonUserInfo);
     }
 
     /**
@@ -255,5 +273,16 @@ public class CommonUserInfoBPOImpl implements CommonUserInfoBPO {
             queryWrapper.apply("date_format(createtime,'%Y-%m-%d') between {0} and {1}", startDate, endDate);
         }
         return queryWrapper;
+    }
+
+    /**
+     * @author 何欢
+     * @Date 11:48 2022/10/2
+     * @Description 查询保存参数校验
+     **/
+    private void validSaveOrUpdateParam(CommonUserParamDTO commonUserParamDTO){
+        if(CommonUtils.IsNull(commonUserParamDTO)){
+            throw new RuntimeException("参数不能为空");
+        }
     }
 }

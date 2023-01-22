@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * @Author: 何欢
  * @Date: 2022/8/1721:38
@@ -61,9 +63,9 @@ public class WeifxUserInfo {
 
     @TableField(value = "createtime", fill = FieldFill.INSERT)
     @ApiModelProperty(value = "数据新增时间")
-    private String createtime;
+    private LocalDateTime createtime;
 
     @TableField(value = "updatetime", fill = FieldFill.UPDATE)
     @ApiModelProperty(value = "数据修改时间")
-    private String updatetime;
+    private LocalDateTime updatetime;
 }
